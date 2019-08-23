@@ -38,7 +38,6 @@ public class RecipeServiceImpl implements RecipeService {
 
     @Override
     public Recipe findById(Long l) {
-
         Optional<Recipe> recipeOptional = recipeRepository.findById(l);
 
         if (!recipeOptional.isPresent()) {
@@ -62,5 +61,10 @@ public class RecipeServiceImpl implements RecipeService {
     @Override
     public RecipeCommand findCommandById(long id) {
         return recipeToRecipeCommand.convert(findById(id));
+    }
+
+    @Override
+    public void deleteById(Long id) {
+        recipeRepository.deleteById(id);
     }
 }
