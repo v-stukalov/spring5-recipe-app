@@ -9,4 +9,6 @@ public interface IngredientService {
 
     @Transactional
     IngredientCommand saveIngredientCommand(IngredientCommand command);
+
+    void deleteByRecipeIdAndIngredientId(Long recipeId, Long ingredientId);
 }

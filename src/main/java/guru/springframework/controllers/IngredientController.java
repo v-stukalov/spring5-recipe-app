@@ -67,7 +67,7 @@ public class IngredientController {
     @RequestMapping("recipe/{recipeId}/ingredient/new")
     public String newRecipeIngredient(@PathVariable String recipeId, Model model) {
         RecipeCommand recipeCommand = recipeService.findCommandById(Long.valueOf(recipeId));
-// TODO raise an exception if null
+        // TODO raise an exception if null
         IngredientCommand ingredientCommand = new IngredientCommand();
         ingredientCommand.setRecipeId(Long.valueOf(recipeId));
         ingredientCommand.setUom(new UnitOfMeasureCommand());
@@ -76,5 +76,13 @@ public class IngredientController {
         model.addAttribute("uomList", unitOfMeasureService.listAllUoms());
 
         return "recipe/ingredient/ingredientform";
+    }
+
+    @RequestMapping("recipe/{recipeId}/ingredient/{id}/delete")
+    public String deleteIngredient(@PathVariable String recipeId, @PathVariable String id) {
+        log.debug("Deleting Recipe/Ingredient ID: " + recipeId + "/" + id);
+        ingredientService.deleteByRecipeIdAndIngredientId(Long.valueOf(recipeId), Long.valueOf(id));
+
+        return "redirect:/recipe/"+recipeId+"/ingredients";
     }
 }
